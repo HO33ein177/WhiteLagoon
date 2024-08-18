@@ -5,7 +5,7 @@
 namespace WhiteLagoon.Infrastracture.Migrations
 {
     /// <inheritdoc />
-    public partial class AddAmenityToDb1 : Migration
+    public partial class RecreateAmenitiesTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,7 +23,18 @@ namespace WhiteLagoon.Infrastracture.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Amenities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Amenities_Villas_VillaId",
+                        column: x => x.VillaId,
+                        principalTable: "Villas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Amenities_VillaId",
+                table: "Amenities",
+                column: "VillaId");
         }
 
         /// <inheritdoc />

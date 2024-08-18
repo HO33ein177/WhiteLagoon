@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WhiteLagoon.Domain.Entities;
 
-namespace WhiteLagoon.Web
+namespace WhiteLagoon.Web.ViewModel
 {
     public class AmenityVm
     {

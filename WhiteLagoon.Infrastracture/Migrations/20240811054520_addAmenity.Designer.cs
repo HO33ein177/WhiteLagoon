@@ -12,8 +12,8 @@ using WhiteLagoon.Infrastracture.Data;
 namespace WhiteLagoon.Infrastracture.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240810081936_AddAmenityToDb1")]
-    partial class AddAmenityToDb1
+    [Migration("20240811054520_addAmenity")]
+    partial class addAmenity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,29 +24,6 @@ namespace WhiteLagoon.Infrastracture.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("WhiteLagoon.Domain.Entities.Amenity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("VillaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Amenities");
-                });
 
             modelBuilder.Entity("WhiteLagoon.Domain.Entities.Villa", b =>
                 {

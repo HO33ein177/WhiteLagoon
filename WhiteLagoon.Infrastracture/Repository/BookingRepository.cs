@@ -10,10 +10,10 @@ using WhiteLagoon.Infrastracture.Data;
 
 namespace WhiteLagoon.Infrastracture.Repository
 {
-    public class AmenityRepository : Repository<Amenity>, IAmenityRepository
+    public class BookingRepository : Repository<Booking>, IBookingRepository
     {
         private readonly ApplicationDbContext _db;
-        public AmenityRepository(ApplicationDbContext db) : base(db)
+        public BookingRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
 
@@ -21,16 +21,12 @@ namespace WhiteLagoon.Infrastracture.Repository
 
         public void save()
         {
-            try { _db.SaveChanges(); }
-            catch (DbUpdateException e) {
-                
-                    Console.WriteLine(e.Message);
-                    }
+             _db.SaveChanges();       
         }
 
-        public void updateAmenity(Amenity amenity)
+        public void updateBooking(Booking entity)
         {
-            _db.Update(amenity);
+            _db.Update(entity);
         }
     }
 }

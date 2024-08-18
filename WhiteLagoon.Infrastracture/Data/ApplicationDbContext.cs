@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using WhiteLagoon.Domain.Entities;
 
 namespace WhiteLagoon.Infrastracture.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -20,9 +21,13 @@ namespace WhiteLagoon.Infrastracture.Data
 
         public DbSet<Amenity> Amenities { get; set; }
 
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+        public DbSet<Booking> Bookings { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Villa>().HasData(new Villa
             {
                 Id = 1,
@@ -118,7 +123,89 @@ namespace WhiteLagoon.Infrastracture.Data
 
 
                 );
-            
+
+            //modelBuilder.Entity<Amenity>().HasData(modelBuilder.Entity<Amenity>().HasData(
+            //  new Amenity
+            //  {
+            //      Id = 1,
+            //      Name = "Royal",
+            //      VillaId = 1,
+            //      Description = "Private Pool"
+            //  }, new Amenity
+            //  {
+            //      Id = 2,
+            //      VillaId = 1,
+            //      Name = "Royal",
+            //      Description = "Microwave"
+            //  }, new Amenity
+            //  {
+            //      Id = 3,
+            //      VillaId = 1,
+            //      Name = "Royal",
+
+            //      Description = "Private Balcony"
+            //  }, new Amenity
+            //  {
+            //      Id = 4,
+            //      VillaId = 1,
+            //      Name = "Royal",
+
+            //      Description = "1 king bed and 1 sofa bed"
+            //  },
+
+            //  new Amenity
+            //  {
+            //      Id = 5,
+            //      VillaId = 2,
+            //      Name = "Double",
+            //      Description = "Private Plunge Pool"
+            //  }, new Amenity
+            //  {
+            //      Id = 6,
+            //      VillaId = 2,
+            //      Name = "Double",
+
+            //      Description = "Microwave and Mini Refrigerator"
+            //  }, new Amenity
+            //  {
+            //      Id = 7,
+            //      VillaId = 2,
+            //      Name = "Double",
+
+            //      Description = "Private Balcony"
+            //  }, new Amenity
+            //  {
+            //      Id = 8,
+            //      VillaId = 2,
+            //      Name = "Double",
+
+            //      Description = "king bed or 2 double beds"
+            //  },
+
+            //  new Amenity
+            //  {
+            //      Id = 9,
+            //      VillaId = 3,
+            //      Name = "Triple",
+            //      Description = "Private Pool"
+            //  }, new Amenity
+            //  {
+            //      Id = 10,
+            //      VillaId = 3,
+            //      Name = "Triple",
+
+            //      Description = "Jacuzzi"
+            //  }, new Amenity
+            //  {
+            //      Id = 11,
+            //      VillaId = 3,
+            //      Name = "Triple",
+
+            //      Description = "Private Balcony"
+            //  })
+
+            //    );
+
         }
     }
 }

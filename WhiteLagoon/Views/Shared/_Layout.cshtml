@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/css/Spinner.css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/2.1.4/css/dataTables.dataTables.min.css" />
 </head>
 <body>
     <header>
@@ -24,33 +25,45 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Menu Bar
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">
-                                        Home
-                                    </a> 
-                                 </li>
-                                <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Privacy">
-                                        Privacy
-                                    </a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="Villa" asp-action="Index">Villa</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-controller="VillaNumber" asp-action="Index">Villa Number</a>
-                                </li>
-                                <li>
-                                    <a class="nav-link text-white" asp-controller="Amenity" asp-action="Index"> Amenity </a>
-                                </li>
-                            </ul>
+                            
+                            @if (User.IsInRole(SD.Role_Admin))
+                            {
+                                <a class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Menu Bar
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item text-white" asp-area="" asp-controller="Home" asp-action="Index">
+                                            Home
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-white" asp-area="" asp-controller="Home" asp-action="Privacy">
+                                            Privacy
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item text-white" asp-controller="Villa" asp-action="Index">Villa</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="VillaNumber" asp-action="Index">Villa Number</a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-white" asp-controller="Amenity" asp-action="Index"> Amenity </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-white" asp-controller="Booking" asp-action="Index" asp-route-status="@SD.StatusApproved"> Booking </a>
+                                    </li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <a class="nav-link text-white" asp-controller="Booking" asp-action="Index" asp-route-status="@SD.StatusApproved"> Booking </a>
+                            }
+
                         </li>
                         @* <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -96,6 +109,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js" integrity="sha512-7Pi/otdlbbCR+LnW+F7PwFcSDJOuUJB3OxtEHbg4vSMvzvJjde4Po1v4BR9Gdc9aXNUNFVUY+SK51wWT8WF0Gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="//cdn.datatables.net/2.1.4/js/dataTables.min.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -126,15 +126,25 @@ namespace WhiteLagoon.Web.Controllers
 
                 if (result.Succeeded)
                 {
-                    
-                    if (string.IsNullOrEmpty(loginVm.RedirectUrl))
+                    var user =  await _userManager.FindByEmailAsync(loginVm.Email);
+                    if(await _userManager.IsInRoleAsync(user,SD.Role_Admin))
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index","DashBoard");
                     }
+
                     else
                     {
-                        return LocalRedirect(loginVm.RedirectUrl);
+                        if (string.IsNullOrEmpty(loginVm.RedirectUrl))
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            return LocalRedirect(loginVm.RedirectUrl);
+                        }
                     }
+                    
+                    
                 }
 
                 else

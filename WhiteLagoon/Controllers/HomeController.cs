@@ -1,12 +1,15 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using System.Diagnostics;
 using WhiteLagoon.Application.Common.Interfaces;
+using WhiteLagoon.Application.Utility;
 using WhiteLagoon.Models;
 using WhiteLagoon.Web.ViewModel;
 
 namespace WhiteLagoon.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -32,13 +35,18 @@ namespace WhiteLagoon.Controllers
         public IActionResult GetVillasByDate(int nights, DateOnly checkInDate) 
         {
             var villaList = _unitOfWork.Villa.GetAll(includeProperties: "VillaAmenities").ToList();
+            var villaNumbersList = _unitOfWork.VillaNumber.GetAll().ToList();
+            var bookedVillas = _unitOfWork.Booking.GetAll(u => u.Status == SD.StatusApproved ||
+            u.Status == SD.StatusCheckedIn).ToList();
+
+
 
             foreach (var villa in villaList) 
             {
-                if(villa.Id %2 == 0)
-                {
-                    villa.IsAvailable = false ;
-                }
+                int roomAvailable = SD.VillaRoomsAvailable_Count
+                    (villa.Id, villaNumbersList, checkInDate, nights, bookedVillas);
+
+                villa.IsAvailable = roomAvailable > 0 ? true : false;
             }
 
             HomeVm homeVM = new()

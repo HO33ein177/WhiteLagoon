@@ -1,0 +1,131 @@
+﻿
+
+
+@{
+    var approved = "";
+    var status = "";
+    var pending = "";
+    var checkedIn = "";
+    var completed = "";
+    var cancelled = "";
+
+    switch (status)
+    {
+        case SD.StatusPending:
+            pending = "text-white-success";
+            break;
+        
+        case SD.StatusApproved:
+            approved = "text-white-success";
+            break;
+        
+         case SD.StatusCheckedIn:
+            checkedIn = "text-white-success";
+            break;
+            
+         case SD.StatusCompleted:
+            completed = "text-white-success";
+            break;
+              
+         case SD.StatusCancelled:
+            cancelled = "text-white-success";
+            break;
+
+        default:
+            break;
+            
+        
+    }
+
+
+
+
+
+
+}
+
+
+
+
+<div class="container my-5">
+    <div  class="card border-0 shadow-sm">
+        <div class="card-header bg-success text-white text-center py-4">
+            <h2>Booking's List</h2>
+        </div>
+        <div class="card-body border-p4">
+            <div class="d-flex justify-content-end pb-4 pt-2">
+                <ul class="list-group list-group-horizontal-sm">
+                    
+                    <a style="text-decoration:none;" asp-contorller="Booking" asp-action="Index"
+                        asp-route-status="@SD.StatusPending">
+                        <li class="list-group-item" @pending> @SD.StatusPending </li>
+                    </a> 
+                    
+                    <a style="text-decoration:none;" asp-contorller="Booking" asp-action="Index"
+                        asp-route-status="@SD.StatusApproved">
+                        <li class="list-group-item" @approved> @SD.StatusApproved </li>
+                    </a> 
+                    
+                    <a style="text-decoration:none;" asp-contorller="Booking" asp-action="Index"
+                        asp-route-status="@SD.StatusCheckedIn">
+                        <li class="list-group-item" @checkedIn> @SD.StatusCheckedIn </li>
+                    </a>
+                    
+                    <a style="text-decoration:none;" asp-contorller="Booking" asp-action="Index"
+                        asp-route-status="@SD.StatusCompleted">
+                        <li class="list-group-item" @completed> @SD.StatusCompleted </li>
+                    </a> 
+                    
+                    <a style="text-decoration:none;" asp-contorller="Booking" asp-action="Index"
+                    asp-route-status="@SD.StatusCancelled">
+                    <li class="list-group-item" @cancelled> @SD.StatusCancelled </li>
+                    </a> 
+                
+                </ul>
+            </div>
+        </div> 
+        <div  class="table-responsive">
+            <table id="tblBookings" class="table table-hover table-striped align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th> ID </th>
+                        <th>Name</th>
+                        <th> Phone </th>
+                        <th>  Email </th>
+                        <th> Status </th>
+                        <th> Check in date</th>
+                        <th> Nights </th>
+                        <th> Total </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .card-header {
+        background: linear-gradient(45deg, #5645, #218838);
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
+@section Scripts{
+    <script src="~/js/booking.js"></script>
+}

@@ -10,24 +10,20 @@ using WhiteLagoon.Infrastracture.Data;
 
 namespace WhiteLagoon.Infrastracture.Repository
 {
-    public class AmenityRepository : Repository<Amenity>, IAmenityRepository
+    public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
     {
+
         private readonly ApplicationDbContext _db;
-        public AmenityRepository(ApplicationDbContext db) : base(db)
+        public ApplicationUserRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
 
         }
 
-        public void save()
+        public void Save()
         {
-             _db.SaveChanges();
-            
-        }
+            _db.SaveChanges();
 
-        public void updateAmenity(Amenity amenity)
-        {
-            _db.Update(amenity);
         }
     }
 }
